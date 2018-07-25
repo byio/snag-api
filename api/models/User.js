@@ -4,7 +4,7 @@ const isSeller = (role) => role === 'seller';
 
 const userSchema = mongoose.Schema({
   _id: mongoose.Schema.Types.ObjectId,
-  role: {
+  accountType: { // seller, buyer, admin
     type: String,
     required: true
   },
