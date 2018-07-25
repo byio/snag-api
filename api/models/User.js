@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const isSeller = (role) => role === 'seller';
+const isSeller = (accountType) => accountType === 'seller';
 
 const userSchema = mongoose.Schema({
   _id: mongoose.Schema.Types.ObjectId,
@@ -27,9 +27,16 @@ const userSchema = mongoose.Schema({
     required: true
   },
   address: {
-    type: String,
-    required: isSeller(role)
+    type: String
   },
+  sellerRatings: {
+    type: Number,
+    default: 0
+  },
+  buyerRatings: {
+    type: Number,
+    default: 0
+  }
 });
 
 module.exports = mongoose.model('User', userSchema);
