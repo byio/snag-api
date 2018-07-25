@@ -2,9 +2,13 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const morgan = require('morgan');
+const bodyParser = require('body-parser');
 
 // start app
 const app = express();
+
+// import routes
+const usersRoutes = require('./api/routes/users');
 
 // dotenv
 require('dotenv').config();
@@ -16,6 +20,10 @@ mongoose.connect(uri, { useNewUrlParser: true })
 
 // morgan logging middleware
 app.use(morgan('dev'));
+
+// body-parser middleware
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 // CORS middleware
 app.use((req, res, next) => {
@@ -33,6 +41,9 @@ app.use((req, res, next) => {
   }
   next();
 });
+
+// use routes
+app.use('/users', usersRoutes);
 
 // general error handling
 app.use((req, res, next) => {
