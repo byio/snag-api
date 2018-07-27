@@ -8,8 +8,15 @@ const app = require('../app');
 // tests
 describe('API endpoint /users', function () {
 
-  it('this is a test test', function () {
-    return true;
+  // GET - fetch all users
+  it('should return all users', function () {
+    return chai.request(app)
+      .get('/users')
+      .then(function (res) {
+        expect(res).to.have.status(200);
+        expect(res).to.be.json;
+        expect(res.body).to.be.an('object');
+      })
   });
 
 });
